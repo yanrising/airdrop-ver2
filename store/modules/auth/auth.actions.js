@@ -7,7 +7,7 @@ export default {
   async verifyToken({commit}) {
     return new Promise(async (resolve, reject) => {
       try {
-        let address = window.ethereum.selectedAddress
+        let address = window?.ethereum?.selectedAddress
         if (address) {
           let findUser = await db.collection('users').doc(address).get()
           if (findUser.exists) {
@@ -31,7 +31,7 @@ export default {
           reject('No user found')
         }
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     })
   },
@@ -82,7 +82,7 @@ export default {
   async updateInfo({commit}, reqObj) {
     return new Promise(async (resolve, reject) => {
       try {
-        let address = window.ethereum.selectedAddress
+        let address = window?.ethereum?.selectedAddress
         if (address) {
           await db.collection('users').doc(address).update({
             ...reqObj,

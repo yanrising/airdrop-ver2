@@ -1,19 +1,24 @@
 <template>
-    <div class="layout">
-      <div class="bg"></div>
-      <div class="star-field">
-      </div>
-      <div class="dogo1">
-        <img src="/images/doge.png" alt="">
-      </div>
-      <div class="dogo2">
-        <img src="/images/doge.png" alt="">
-      </div>
-      <nuxt />
-      <div v-if="!isInstalled">
-        Please Install MetaMask
-      </div>
-    </div>
+        
+        <div class="layout">
+            <div class="bg"></div>
+            <div class="star-field">
+            </div>
+            <div class="dogo1">
+              <img src="/images/doge.png" alt="">
+            </div>
+            <div class="dogo2">
+              <img src="/images/doge.png" alt="">
+            </div>
+            <div v-if="!isInstalled">
+                Please Install MetaMask
+            </div>
+
+            <div v-else>
+                <nuxt />
+            </div>
+          </div>
+    
 </template>
 
 <script>
@@ -48,8 +53,6 @@ export default {
 			logout: 'logout',
 			connectWallet: 'connectWallet',
 		}),
-    },
-    watch: {
     },
 }
 </script>
