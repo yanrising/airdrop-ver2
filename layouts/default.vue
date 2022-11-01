@@ -2,12 +2,17 @@
     <div class="layout">
       <div class="bg"></div>
       <div class="star-field">
-        <div class="layer"></div>
-        <div class="layer"></div>
-        <div class="layer"></div>
       </div>
-
+      <div class="dogo1">
+        <img src="/images/doge.png" alt="">
+      </div>
+      <div class="dogo2">
+        <img src="/images/doge.png" alt="">
+      </div>
       <nuxt />
+      <div v-if="!isInstalled">
+        Please Install MetaMask
+      </div>
     </div>
 </template>
 
@@ -15,6 +20,37 @@
 import { mapActions } from 'vuex'
 
 export default {
+    data(){
+        return{
+            isInstalled: false
+        }
+    },
+    
+    created() {
+        if (window.ethereum) {
+            this.isInstalled = true
+            ethereum.on('accountsChanged', async (accounts) => {
+                console.log(accounts);
+                if(accounts.length > 0){
+                    this.connectWallet()
+                }
+                else{
+                    this.logout()
+                }
+            });
+        }
+        else{
+            this.isInstalled = false
+        }
+    },
+    methods: {
+        ...mapActions({
+			logout: 'logout',
+			connectWallet: 'connectWallet',
+		}),
+    },
+    watch: {
+    },
 }
 </script>
 
@@ -29,6 +65,7 @@ export default {
   .bg {
     background: url(/images/home_bg_full.jpeg) no-repeat;
     background-size: cover;
+    background-position: center center;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -115,5 +152,25 @@ export default {
 .star-field .layer:nth-child(3) {
     animation: sf-fly-by-3 5s linear infinite;
 }
+.dogo1{
+    position: absolute;
+    z-index: -1;
+    bottom: -100px;
+    right: -80px;
 
+    img{
+        width: 200px;
+    }
+}
+.dogo2{
+    position: absolute;
+    z-index: -1;
+    bottom: -100px;
+    left: -80px;
+    transform: rotateY(180deg);
+
+    img{
+        width: 200px;
+    }
+}
 </style>

@@ -80,7 +80,6 @@ export default {
 		'@/plugins/axios',
 		"@/plugins/filters",
 		"@/plugins/v-fragment",
-		'@/plugins/moralis',
 	],
 	/*
 	 ** Create the dynamic routes

@@ -5,6 +5,6 @@ export default ({ store, route, redirect }) => {
   }
   return store
     .dispatch('verifyToken').then(() => {}).catch((err) => {
-      // console.log(err)
+      console.log(err)
     })
 };

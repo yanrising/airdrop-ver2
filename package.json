@@ -12,6 +12,8 @@
 		"deploy": "gulp deploy"
 	},
 	"dependencies": {
+		"@dicebear/avatars": "^4.10.5",
+		"@dicebear/avatars-identicon-sprites": "^4.10.5",
 		"@nuxtjs/axios": "^5.13.1",
 		"@nuxtjs/dotenv": "^1.4.1",
 		"ansi-html": "^0.0.7",

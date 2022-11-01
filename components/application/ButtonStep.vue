@@ -80,7 +80,7 @@
     font-size: 24px;
     font-weight: bold;
     color: #e8e8e8;
-    background: rgba($color: #452a7a, $alpha: 1);
+    background: rgba($color: #3e88c9, $alpha: 1);
 
     @media (max-width: 767px) {
       font-size: 16px;

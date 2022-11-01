@@ -1,5 +1,4 @@
 import { getTypes } from '~/store/mutation-types'
-import Moralis from 'moralis'
 import { firestore as db } from '~/config/firebase.config'
 
 const types = getTypes('auth')
@@ -8,36 +7,26 @@ export default {
   async verifyToken({commit}) {
     return new Promise(async (resolve, reject) => {
       try {
-        let user = await Moralis.User.current()
-        if (user) {
-          let address = user.get('ethAddress') || ''
-          if (address) {
-            let findUser = await db.collection('users').doc(address).get()
-            if (findUser.exists) {
-              let data = findUser.data()
-              if (data) {
-                commit(types.setAuthoriser, data)
-                resolve(data)
-              }
-              else {
-                commit(types.clearAuthoriser)
-                reject('User not found')
-              }
+        let address = window.ethereum.selectedAddress
+        if (address) {
+          let findUser = await db.collection('users').doc(address).get()
+          if (findUser.exists) {
+            let data = findUser.data()
+            if (data) {
+              commit(types.setAuthoriser, data)
+              resolve(data)
             }
             else {
-              await Moralis.User.logOut()
               commit(types.clearAuthoriser)
               reject('User not found')
             }
           }
           else {
-            await Moralis.User.logOut()
             commit(types.clearAuthoriser)
-            reject('No user found')
+            reject('User not found')
           }
         }
         else {
-          await Moralis.User.logOut()
           commit(types.clearAuthoriser)
           reject('No user found')
         }
@@ -49,7 +38,6 @@ export default {
 
   async logout({commit}) {
     try {
-      await Moralis.User.logOut()
       commit(types.clearAuthoriser)
     } catch (error) {
       // console.log(error);
@@ -59,10 +47,9 @@ export default {
   connectWallet({commit}, reqObj) {
     return new Promise(async (resolve, reject) => {
       try {
-        await Moralis.authenticate().then(async (user) => {
-          console.log(user);
+        await window.ethereum.request({ method: 'eth_requestAccounts' }).then(async (user) => {
           if(user) {
-            let address = user.get("ethAddress");
+            let address = user[0];
             let findUser = await db.collection('users').doc(address).get()
             if(findUser.exists) {
               commit(types.setAuthoriser, findUser.data())
@@ -90,5 +77,24 @@ export default {
         reject(error)
       }
     }
-  )}
+  )},
+
+  async updateInfo({commit}, reqObj) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let address = window.ethereum.selectedAddress
+        if (address) {
+          await db.collection('users').doc(address).update({
+            ...reqObj,
+            updatedAt: new Date()
+          })
+          let findUser = await db.collection('users').doc(address).get()
+          commit(types.setAuthoriser, findUser.data())
+          resolve(findUser.data())
+        }
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
 }
