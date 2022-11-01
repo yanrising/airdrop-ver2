@@ -29,34 +29,34 @@
             <ButtonStep
                title="Join Our Telegram Channel"
                buttonText="Join"
-               @buttonClick="postOnTwitter"
+               @buttonClick="joinTelegramChannel"
                :isDone="step !== 0"
                :isThisStep="step === 0 && !!authUser"
             />
             <ButtonStep
                title="Join Our Telegram Chat"
                buttonText="Join"
-               @buttonClick="followUsOnTwitter"
+               @buttonClick="joinTelegramChat"
                :isDone="step !== 1 && step !== 0"
                :isThisStep="step === 1 && !!authUser"
             />
             <ButtonStep
                title="Follow Us On Twitter"
-               buttonText="Retweet"
-               @buttonClick="retweetPinnedPost"
+               buttonText="Follow"
+               @buttonClick="followTwitter"
                :isDone="step !== 1 && step !== 0 && step !== 2"
                :isThisStep="step === 2 && !!authUser"
             />
             <ButtonStep
                title="Retweet Our Pinned Post"
-               buttonText="Like"
-               @buttonClick="likeOnTwitter"
+               buttonText="Retweet"
+               @buttonClick="retweet"
                :isDone="step !== 1 && step !== 0 && step !== 2 && step !== 3"
                :isThisStep="step === 3  && !!authUser"
             />
             <div class="form" v-if="step === 4">
                <a-button :class="`button ${!authUser || authUser.isClaimed ? 'disabled-btn' : ''}`" @click="submitWalletAddress">
-                  Submit</a-button
+                  Claim Airdrop</a-button
                >
             </div>
             <div class="form" v-if="step === 6">
@@ -120,11 +120,10 @@ export default Vue.extend({
 			connectWallet: 'connectWallet',
          updateInfo: 'updateInfo',
 		}),
-      postOnTwitter() {
-         let list = this.getRandomItemsInArray(data, 3).map((item) => {
-            return `@${item}`;
-         });
-         let popup = window.open("/");
+      joinTelegramChannel() {
+         let popup = window.open(
+            "https://t.me/TWDogechannel",'popup', 
+				'height=570,width=520,');
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -134,8 +133,10 @@ export default Vue.extend({
             }
          }, 1000);
       },
-      followUsOnTwitter() {
-         let popup = window.open("/");
+      joinTelegramChat() {
+         let popup = window.open("https://t.me/TwitterDogeCommunity",
+            'popup', 
+				'height=570,width=520,');
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -145,11 +146,14 @@ export default Vue.extend({
             }
          }, 1000);
       },
-      retweetPinnedPost() {
+      followTwitter() {
          let list = this.getRandomItemsInArray(data, 3).map((item) => {
             return `@${item}`;
          });
-         let popup = window.open("/");
+         let popup = window.open(
+            `https://twitter.com/intent/follow?screen_name=TwitDogecoin`, 
+				'popup', 
+				'height=570,width=520,');
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -159,24 +163,20 @@ export default Vue.extend({
             }
          }, 1000);
       },
-      likeOnTwitter() {
-         let popup = window.open("/");
+      retweet() {
+			let list = this.getRandomItemsInArray(data, 3).map((item) => {
+				return `@${item}`;
+			});
+         let popup = window.open(
+            `https://twitter.com/intent/tweet?in_reply_to=1587381518795935744&text=${list.join('%20')}%0A%0A&hashtags=DOGE,TWDoge,twitdoge,ELONMUSK,BNB`, 
+				'popup', 
+				'height=570,width=520,'
+			);
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
             if (now - start > 5000) {
                this.step = 4;
-               clearInterval(timer);
-            }
-         }, 1000);
-      },
-      joinOurTelegram() {
-         let popup = window.open("/");
-         let start = moment().valueOf();
-         let timer = setInterval(() => {
-            let now = moment().valueOf();
-            if (now - start > 5000) {
-               this.step = 5;
                clearInterval(timer);
             }
          }, 1000);
