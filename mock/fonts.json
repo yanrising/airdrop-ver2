@@ -1,0 +1,62 @@
+[
+	{
+		"name": "Poppins",
+		"css": "Poppins:100,100i,300,300i,400,400i,700,700i,900,900i",
+		"weights": ["100", "300", "400", "700", "900"]
+	},
+	{
+		"name": "Merriweather",
+		"css": "Merriweather:300,300i,400,400i,700,700i,900,900i",
+		"weights": ["300","400","700","900"]
+	},
+	{
+		"name": "Montserrat",
+		"css": "Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i",
+		"weights": ["100","200","300","400","500","600","700","800","900"]
+	},
+	{
+		"name": "Lora",
+		"css": "Lora:400,400i,700,700i",
+		"weights": ["400", "700"]
+	},
+	{
+		"name": "Oswald",
+		"css": "Oswald:200,300,400,500,600,700",
+		"weights": ["200","300","400","500","600","700"]
+	},
+	{
+		"name": "Playfair Display",
+		"css": "Playfair+Display:400,400i,700,700i,900,900i",
+		"weights": ["400","700","900"]
+	},
+	{
+		"name": "Source Serif Pro",
+		"css": "Source+Serif+Pro:400,600,700",
+		"weights": ["400","600","700"]
+	},
+	{
+		"name": "Bitter",
+		"css": "Bitter:400,400i,700",
+		"weights": ["400","700"]
+	},
+	{
+		"name": "Fira Mono",
+		"css": "Fira+Mono:400,500,700",
+		"weights": ["400","500","700"]
+	},
+	{
+		"name": "Pacifico",
+		"css": "Pacifico",
+		"weights": ["400"]
+	},
+	{
+		"name": "Libre Baskerville",
+		"css": "Libre+Baskerville:400,400i,700",
+		"weights": ["400", "700"]
+	},
+	{
+		"name": "Source Sans Pro",
+		"css": "Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i",
+		"weights": ["200","300","400","600","700","900"]
+	}
+]

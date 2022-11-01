@@ -1,0 +1,64 @@
+const gulp = require('gulp')
+const awspublish = require('gulp-awspublish')
+const parallelize = require('concurrent-transform')
+const cloudfront = require('gulp-awspublish-cloudfront-invalidate')
+
+// https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html
+
+const config = {
+
+    // Required
+    params: {
+        Bucket: process.env.AWS_BUCKET_NAME
+    },
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        signatureVersion: 'v3'
+    },
+
+    // Optional
+    deleteOldVersions: true, // NOT FOR PRODUCTION
+    region: process.env.AWS_DEFAULT_REGION,
+    headers: { /* 'Cache-Control': 'max-age=315360000, no-transform, public', */ },
+
+    // Sensible Defaults - gitignore these Files and Dirs
+    distDir: 'dist',
+    indexRootPath: true,
+    cacheFileName: '.awspublish',
+    concurrentUploads: 10,
+    wait: true,
+    distribution: process.env.AWS_CLOUDFRONT,
+    bucketInvalidate: true
+}
+
+gulp.task('deploy', function () {
+    // create a new publisher using S3 options
+    // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
+    const publisher = awspublish.create(config)
+
+    let g = gulp.src('./' + config.distDir + '/**')
+    // publisher will add Content-Length, Content-Type and headers specified above
+    // If not specified it will set x-amz-acl to public-read by default
+    g = g.pipe(parallelize(publisher.publish(config.headers, {
+        force: true,
+    }), config.concurrentUploads))
+
+    // Invalidate CDN
+    if (config.distribution) {
+        console.log('Configured with CloudFront distribution')
+        g = g.pipe(cloudfront(config))
+    } else {
+        console.log(
+            'No CloudFront distribution configured - skipping CDN invalidation'
+        )
+    }
+
+    // Delete removed files
+    if (config.deleteOldVersions) { g = g.pipe(publisher.sync()) }
+    // create a cache file to speed up consecutive uploads
+    g = g.pipe(publisher.cache())
+    // print upload updates to console
+    g = g.pipe(awspublish.reporter())
+    return g
+})
