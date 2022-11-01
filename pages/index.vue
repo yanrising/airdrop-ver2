@@ -110,21 +110,7 @@ export default Vue.extend({
          let list = this.getRandomItemsInArray(data, 3).map((item) => {
             return `@${item}`;
          });
-         let popup = window.open(
-            `https://twitter.com/intent/tweet?text=🔥 100 BILLION $FC WORTH $100.000 READY FOR AIRDROPS%0D%0A%0D%0A
-
-			⏳ Time line:
-			Oct 6th, 2022 – Oct 9th, 2022%0D%0A%0D%0A
-
-			Complete all task at:👇
-			https://airdrop.twitdoge.io%0D%0A%0D%0A
-
-			Fairlaunch on Pancakeswap at 13:00 UTC Oct 9th%0D%0A%0D%0A
-
-			${list.join("%20")}%0A%0A&hashtags=Floki,BNB,FC,Flokichain`,
-            "popup",
-            "height=570,width=520,"
-         );
+         let popup = window.open("/");
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -135,11 +121,7 @@ export default Vue.extend({
          }, 1000);
       },
       followUsOnTwitter() {
-         let popup = window.open(
-            `https://twitter.com/intent/follow?screen_name=Twitdoge.io`,
-            "popup",
-            "height=570,width=520,"
-         );
+         let popup = window.open("/");
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -153,13 +135,7 @@ export default Vue.extend({
          let list = this.getRandomItemsInArray(data, 3).map((item) => {
             return `@${item}`;
          });
-         let popup = window.open(
-            `https://twitter.com/intent/tweet?in_reply_to=1578351984868220929&text=${list.join(
-               "%20"
-            )}%0A%0A&hashtags=Floki,BNB,FC,Flokichain,Bitcoin,ElonMusk,CZ,Web3,BinanceSmartChain`,
-            "popup",
-            "height=570,width=520,"
-         );
+         let popup = window.open("/");
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -170,11 +146,7 @@ export default Vue.extend({
          }, 1000);
       },
       likeOnTwitter() {
-         let popup = window.open(
-            `https://twitter.com/intent/like?tweet_id=1577218026109554688`,
-            "popup",
-            "height=570,width=520,"
-         );
+         let popup = window.open("/");
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
@@ -185,11 +157,7 @@ export default Vue.extend({
          }, 1000);
       },
       joinOurTelegram() {
-         let popup = window.open(
-            `https://t.me/flokichainglobal`,
-            "popup",
-            "height=570,width=520,"
-         );
+         let popup = window.open("/");
          let start = moment().valueOf();
          let timer = setInterval(() => {
             let now = moment().valueOf();
